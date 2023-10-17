@@ -1,7 +1,9 @@
-CREATE DATABASE NewImage;
+-- CREATE DATABASE NewImage;
 -- drop database NewImage;
 
-USE NewImage;
+CREATE DATABASE laravel;
+
+USE laravel;
 
 CREATE TABLE Direccion(
 	idDireccion  INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +37,7 @@ CREATE TABLE TipoProducto(
 	idTipoProducto INT AUTO_INCREMENT PRIMARY KEY,
 	descripcion VARCHAR(100) NOT NULL,
 	estado VARCHAR(20) NOT NULL
-)
+);
 
 CREATE TABLE Oferta(
 	idOferta INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,8 +54,8 @@ CREATE TABLE Producto(
 	descripcion VARCHAR(100),
 	codigo VARCHAR(50) NOT NULL,
 	precio DECIMAL(10,2) NOT NULL,
-	cantidad INT,
-	FOREIGN KEY (idTipoProducto) REFERENCES TipoProducto(idTipoProducto)
+	cantidad INT 
+	-- FOREIGN KEY (idTipoProducto) REFERENCES TipoProducto(idTipoProducto)
 );
 
 CREATE TABLE Cliente(
@@ -61,30 +63,30 @@ CREATE TABLE Cliente(
 	idDireccion INT,
 	idUsuario INT,
 	nit VARCHAR(20),
-	dpi VARCHAR(20),
-	FOREIGN KEY (idDireccion) REFERENCES Direccion(idDireccion),
-	FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
+	dpi VARCHAR(20) 
+	-- FOREIGN KEY (idDireccion) REFERENCES Direccion(idDireccion) 
+	-- FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 
 CREATE TABLE Empleado(
 	idEmpleado INT AUTO_INCREMENT PRIMARY KEY,
-	idUsuario INT,
-	FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
+	idUsuario INT 
+	-- FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 
 CREATE TABLE Especialidad(
 	idEspecialidad INT AUTO_INCREMENT PRIMARY KEY,
 	idEmpleado INT NOT NULL, 
-	descripcion VARCHAR(100) NOT null,
-	FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado)
+	descripcion VARCHAR(100) NOT null 
+	-- FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado)
 );
 
 CREATE TABLE Rol(
 	idRol INT AUTO_INCREMENT PRIMARY KEY,
 	idEspecialidad INT NOT NULL,
-	idEmpleado INT NOT NULL,
-	FOREIGN KEY (idEspecialidad) REFERENCES Especialidad(idEspecialidad),
-	FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado)
+	idEmpleado INT NOT NULL 
+	-- FOREIGN KEY (idEspecialidad) REFERENCES Especialidad(idEspecialidad) 
+	-- FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado)
 );
 
 CREATE TABLE Cita(
@@ -93,20 +95,20 @@ CREATE TABLE Cita(
 	idCliente INT NOT NULL,
 	idEmpleado INT NOT NULL,
 	idHorario INT NOT NULL,
-	idEstado INT NOT NULL,
-	FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
-	FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado),
-	FOREIGN KEY (idHorario) REFERENCES Horario(idHorario),
-	FOREIGN KEY (idEstado) REFERENCES Estado(idEstado)
+	idEstado INT NOT NULL 
+	-- FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente) 
+	-- FOREIGN KEY (idEmpleado) REFERENCES Empleado(idEmpleado) 
+	-- FOREIGN KEY (idHorario) REFERENCES Horario(idHorario) 
+	-- FOREIGN KEY (idEstado) REFERENCES Estado(idEstado)
 );
 
 CREATE TABLE Recordatorio(
 	idRecordatorio INT AUTO_INCREMENT PRIMARY KEY,
 	idCita INT NOT NULL,
 	idEstado INT NOT NULL,
-	intento INT NOT NULL,
-	FOREIGN KEY (idCita) REFERENCES Cita(idCita),
-	FOREIGN KEY (idEstado) REFERENCES Estado(idEstado)
+	intento INT NOT NULL 
+	-- FOREIGN KEY (idCita) REFERENCES Cita(idCita) 
+	-- FOREIGN KEY (idEstado) REFERENCES Estado(idEstado)
 );
 
 CREATE TABLE Servicio(
@@ -116,18 +118,18 @@ CREATE TABLE Servicio(
 	idOferta INT NOT NULL,
 	nombre VARCHAR(50) NOT NULL,
 	descripcion VARCHAR(100),
-	tiempoEstimado TIME,
-	FOREIGN KEY (idCita) REFERENCES Cita(idCita),
-	FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
-	FOREIGN KEY (idOferta) REFERENCES Oferta(idOferta)
+	tiempoEstimado TIME 
+	-- FOREIGN KEY (idCita) REFERENCES Cita(idCita) 
+	-- FOREIGN KEY (idProducto) REFERENCES Producto(idProducto) 
+	-- FOREIGN KEY (idOferta) REFERENCES Oferta(idOferta)
 );
 
 CREATE TABLE Pago(
 	idPago INT AUTO_INCREMENT PRIMARY KEY,
 	idServicio INT NOT NULL,
 	fecha TIMESTAMP NOT NULL,
-	montoTotal DECIMAL(10,2) NOT NULL,
-	FOREIGN KEY (idServicio) REFERENCES Servicio(idServicio)
+	montoTotal DECIMAL(10,2) NOT NULL 
+	-- FOREIGN KEY (idServicio) REFERENCES Servicio(idServicio)
 );
 
 CREATE TABLE Factura(
@@ -136,6 +138,6 @@ CREATE TABLE Factura(
 	idPago INT NOT NULL,
 	noSerie VARCHAR(40) NOT NULL,
 	fecha DATETIME NOT NULL,
-	totalCobrar DECIMAL(10,2) NOT NULL,
-	FOREIGN KEY (idPago) REFERENCES Pago(idPago)
+	totalCobrar DECIMAL(10,2) NOT NULL 
+	-- FOREIGN KEY (idPago) REFERENCES Pago(idPago)
 );
