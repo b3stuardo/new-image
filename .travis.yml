@@ -1,0 +1,20 @@
+language: php
+
+dist: bionic
+
+php:
+  - 8.1
+
+services:
+  - mysql
+
+before_script:
+  - cp .env.example .enn
+  - mqsql -e "create database laravel"
+  - composer self-update
+  - composer install --no-interaction --prefer-source
+  - php artisan key:generate
+  - php artisan migration
+
+script:
+  - php artisan test
