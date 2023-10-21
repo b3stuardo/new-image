@@ -16,4 +16,11 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_listar_citas(): void
+    {
+        $response = $this->get('public/user'); 
+
+        $response->assertStatus(404);
+    }
 }
